@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LTCE Chatbot - Sign Up</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container glassmorphism">
+        <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Join the LTCE Assistant platform</p>
+        </div>
+        
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p class="error-msg">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/signup" class="auth-form">
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Choose a Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Create a Password" required>
+            </div>
+            <button type="submit" class="btn-primary">Sign Up</button>
+        </form>
+        <p class="auth-footer">Already have an account? <a href="/login">Login here</a></p>
+    </div>
+</body>
+</html>

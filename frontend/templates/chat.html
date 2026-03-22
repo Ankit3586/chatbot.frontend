@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LTCE College Chatbot</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>🤖 LTCE College Assistant</h2>
+            <div style="float:right; margin-top:10px;">
+                <span id="user-email"></span> | <a href="/logout" style="color:white; text-decoration:none;">Logout</a>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div id="chat-box" class="chat-box">
+            <p class="bot">Hello! I'm LTCE chatbot. How can I help you today?</p>
+        </div>
+        <div class="input-area">
+            <input type="text" id="msg" placeholder="Type your question (or Hindi)..." onkeypress="if(event.key==='Enter') send();">
+            <button onclick="send()">Send</button>
+            <button onclick="clearHistory()" style="background:#e74c3c;">Clear History</button>
+        </div>
+        <div class="faq">
+            <button onclick="quickQuery('What are the fees?')">💰 Fees</button>
+            <button onclick="quickQuery('Admission process')">📚 Admission</button>
+            <button onclick="quickQuery('Courses offered')">🎓 Courses</button>
+            <button onclick="quickQuery('Placements')">💼 Placements</button>
+            <button onclick="quickQuery('Facilities')">🏢 Facilities</button>
+            <button onclick="quickQuery('Contact details')">📞 Contact</button>
+        </div>
+        <div style="padding: 10px 20px; text-align:center; color:#666; font-size:12px;">
+            Chat history saved for this session
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+    <script>
+        function quickQuery(q) {
+            document.getElementById('msg').value = q;
+            send();
+        }
+        function clearHistory() {
+            localStorage.removeItem('chatHistory');
+            document.getElementById('chat-box').innerHTML = '<p class="bot">History cleared. Ask something!</p>';
+        }
+        // Load user email from session
+        fetch('/get_user').then(res => res.json()).then(data => {
+            document.getElementById('user-email').textContent = data.email || 'Guest';
+        });
+    </script>
+</body>
+</html>
